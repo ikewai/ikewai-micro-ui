@@ -159,6 +159,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   allMicrobesSelected: boolean = false;
   allCFUSelected: boolean = false;
   allQPCRSelected: boolean = false;
+  currentlySelected: number = 0; // samples currently selected
 
   metadata2: any; // current samples state
   microbeMetadata: Metadata[]; // current microbes state
@@ -1216,6 +1217,7 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   selectSample(e, metadata) {
     this.samplesMap[metadata.value.id].checked = e.target.checked
+    this.currentlySelected = this.metadata2.filter((item: any) => item.value.checked).length;
   }
 
   selectAllSamples(type: string) {
@@ -1257,6 +1259,9 @@ export class MapComponent implements OnInit, AfterViewInit {
       })
       this.allQPCRSelected = !this.allQPCRSelected;
     }
+    ((item: any) => item.value.checked);
+
+    this.currentlySelected = this.metadata2.filter((item: any) => item.value.checked).length;
   }
 
   parseReadable(operator: string, value: string, type: string) {
@@ -2407,12 +2412,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     // remove Lat Lon cache
     this.mapZoomedLatLng = null;
   }
-
-  // hideModal(): void {
-  //   // this interferes with the small map.
-  //   // this.selectedMetadata = null;
-  //   //$("#location-modal").modal('hide');
-  // }
 
 }
 
