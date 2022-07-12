@@ -8,13 +8,16 @@
 <div *ngIf="data.length" style="display: flex; flex-direction: column; padding: 10px; margin-bottom: 10px">
   <mat-dialog-content mat-dialog-action style="display: flex; align-items: center; flex-direction: column;">
     <mat-form-field style="width: 75%">
-      <label>Full Name</label><input matInput type="text">
+      <label class="label-title">Full Name</label><input matInput style="margin-top: 5px" required type="text">
     </mat-form-field>
     <mat-form-field style="width: 75%">
-      <label>Company/Affiliation</label><input matInput type="text">
+      <label class="label-title">Company/Affiliation</label><input matInput style="margin-top: 5px" required type="text">
+    </mat-form-field>
+    <mat-form-field style="width: 75%;">
+      <label class="label-title">Email</label><input matInput style="margin-top: 5px" required type="text">
     </mat-form-field>
     <mat-form-field style="width: 75%; margin-bottom: 35px">
-      <label>Email</label><input matInput type="text">
+      <label class="label-title">Reason for Sample Request/Description of Request:</label><textarea matInput style="height: 200px; margin-top: 10px" required></textarea>
     </mat-form-field>
     <h6 style="width: 100%; display: flex; justify-content: center; margin-bottom: 20px">Sample Specifications</h6>
     <div style="width: 50%; display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 60px; justify-items: center;">
