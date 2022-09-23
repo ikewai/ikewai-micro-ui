@@ -14,7 +14,6 @@ export class IAppConfig {
         tenant: string;
         loginURL: string;
         accessToken: string;
-        microDbApi: string;
     };
     apiServer: {
         metadata: string;

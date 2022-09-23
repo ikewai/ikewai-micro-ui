@@ -5,20 +5,24 @@ import { first } from 'rxjs/operators';
 
 import { AuthenticationService } from '../_services/authentication.service';
 
+import {SidenavComponent} from '../sidenav/sidenav.component';
+
 //import { AuthenticationService } from '@/_services';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
 
-export class LoginComponent implements OnInit {
+
+export class DashboardComponent implements OnInit {
     loginForm: FormGroup;
     loading = false;
     submitted = false;
     returnUrl: string;
     error = '';
+
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,7 +41,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
     }
 
     // convenience getter for easy access to form fields
@@ -49,14 +53,6 @@ export class LoginComponent implements OnInit {
         // stop here if form is invalid
         if (this.loginForm.invalid) {
             return;
-        }
-        
-
-        if (this.loginForm.value.username === "tester" && this.loginForm.value.password === "tester") { // remove this for prod
-            alert('bypass auth for development')
-            localStorage.user = true;
-            this.router.navigate([this.returnUrl]);
-            return this.loading = false;
         }
 
         this.loading = true;

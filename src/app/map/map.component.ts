@@ -31,8 +31,6 @@ import { QueryBuilderConfig } from 'angular2-query-builder';
 import { MatDialog } from '@angular/material';
 import { DialogOverviewExampleDialog } from '../dialog/dialog.component'
 
-import { RequestService } from '../_services/request.service';
-
 
 export interface DialogData {
   animal: string;
@@ -53,37 +51,23 @@ export class MapComponent implements OnInit, AfterViewInit {
     private filters: FilterManagerService,
     private http: HttpClient,
     private sanitizer: DomSanitizer,
-    public dialog: MatDialog,
-    private tester: RequestService,
+    public dialog: MatDialog
   ) {
     //currentUser: localStorage.getItem('currentUser');
   }
 
   requestSamples(): void {
 
-    const data = this.metadata2.filter((item: any) => item.value.checked);
+    const data = this.metadata2.filter((item: any) => item.value.checked)
 
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: data.length ? '65%' : '20%',
+      width: data.length ? '75%' : '20%',
       data
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (!result || !result.isValidRequest || !result.selectedData.length) {
-        return console.log('invalid request');
-      } 
-
-      // const data = {
-      //   "name": "TEST_Jul25",
-      //   "value": {
-      //       "samples": ["bar", "baz"],
-      //       "requestor_full_name": "SANITY",
-      //       "company_affiliation": "unknown",
-      //       "email": "blank@blank.com",
-      //       "reason": "none"
-      //   },
-      // }
-      this.tester.request(result);
+      console.log('The dialog was closed');
+      // this.animal = result;
     });
   }
   
@@ -172,7 +156,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   allMicrobesSelected: boolean = false;
   allCFUSelected: boolean = false;
   allQPCRSelected: boolean = false;
-  currentlySelected: number = 0; // samples currently selected
 
   metadata2: any; // current samples state
   microbeMetadata: Metadata[]; // current microbes state
@@ -194,8 +177,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   mapZoomedLatLng: any; // tracks the current LatLon for the small map for modal screen
   mapZoomedCircle: any; // tracks the drawn circle on the small map for modal screen
 
-  timeout: any; // timeout variable
-
   options: L.MapOptions = {
     layers: [
       // tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
@@ -207,7 +188,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     zoom: 10,
     center: latLng(21.48, -157.9104),
     attributionControl: false,
-    // scrollWheelZoom: false,
+    scrollWheelZoom: false,
   };
 
   optionsZoomed: L.MapOptions = {
@@ -221,52 +202,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     center: latLng(21.48, -157.9104),
     attributionControl: false,
     zoomControl: false,
-    // scrollWheelZoom: false,
-    // doubleClickZoom: false,
+    scrollWheelZoom: false,
+    doubleClickZoom: false,
     zoomDelta: 0,
     dragging: false,
   };
 
   drawnItems: L.FeatureGroup = new L.FeatureGroup();
-
-  // customControl = L.Control.extend({
-
-  //   options: {
-  //     position: 'topleft'
-  //   },
-  
-  //   onAdd: function (map) {
-  //     var container = L.DomUtil.create('input');
-  //     container.type="button";
-  //     container.title="No cat";
-  //     container.value = "42";
-  
-  //     container.style.backgroundColor = 'white';     
-  //     container.style.backgroundImage = "url(https://t1.gstatic.com/images?q=tbn:ANd9GcR6FCUMW5bPn8C4PbKak2BJQQsmC-K9-mbYBeFZm1ZM2w2GRy40Ew)";
-  //     container.style.backgroundSize = "30px 30px";
-  //     container.style.width = '30px';
-  //     container.style.height = '30px';
-      
-  //     container.onmouseover = function(){
-  //       container.style.backgroundColor = 'pink'; 
-  //     }
-  //     container.onmouseout = function(){
-  //       container.style.backgroundColor = 'white'; 
-  //     }
-  
-  //     container.onclick = function(){
-  //       console.log('buttonClicked');
-  //     }
-  
-  //     return container;
-  //   }
-  // });
-
-  // // var readyState = function(e){
-  // //   map = new L.Map('map').setView([48.935, 18.14], 14);
-  // //   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-  // //   map.addControl(new customControl());
-  // // }
 
   drawOptions = {
     position: 'topleft',
@@ -1214,8 +1156,8 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   selectSample(e, metadata) {
+    console.log(metadata, 'I NOT USING THE RIGHT ID?')
     this.samplesMap[metadata.value.id].checked = e.target.checked
-    this.currentlySelected = this.metadata2.filter((item: any) => item.value.checked).length;
   }
 
   selectAllSamples(type: string) {
@@ -1257,9 +1199,6 @@ export class MapComponent implements OnInit, AfterViewInit {
       })
       this.allQPCRSelected = !this.allQPCRSelected;
     }
-    ((item: any) => item.value.checked);
-
-    this.currentlySelected = this.metadata2.filter((item: any) => item.value.checked).length;
   }
 
   parseReadable(operator: string, value: string, type: string) {
@@ -1405,9 +1344,6 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   public onMove(e: any) {
-    // if (this.timeout) clearTimeout(this.timeout);
-    // this.timeout = setTimeout(() => this.findData(), 400)
-
     this.findData();
   }
 
@@ -2409,6 +2345,12 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     // remove Lat Lon cache
     this.mapZoomedLatLng = null;
+  }
+
+  hideModal(): void {
+    // this interferes with the small map.
+    // this.selectedMetadata = null;
+    //$("#location-modal").modal('hide');
   }
 
 }

@@ -16,7 +16,7 @@
       <h5>Loading...</h5>
     </div>
     <div *ngIf="metadata.length > 0" style="height:500px;">
-    <div style="display: flex; flex-direction: row; justify-content: space-between; height: 32px"><h5>Sample Site Results {{filterData.length}}</h5><p>{{currentlySelected !== 0 ? 'Selected Samples: ' + currentlySelected : null}}</p></div>
+    <h5>Sample Site Results {{filterData.length}}</h5>
     <div style="overflow: auto; height:468px;" class="table-responsive">
     <table  class="table row-border hover table-striped">
       <tr >
@@ -53,7 +53,7 @@
         <h5>No Microbe Results For Current Area.</h5>
       </div>
       <div *ngIf="microbeMetadata.length > 0" style="height:500px;">
-        <div style="display: flex; flex-direction: row; justify-content: space-between; height: 32px"><h5>Microbe Results {{microbeMetadata.length}}</h5><p>{{currentlySelected !== 0 ? 'Selected Samples: ' + currentlySelected : null}}</p></div>
+      <h5>Microbe Results {{microbeMetadata.length}}</h5>
       <div style="overflow: auto; height:468px;" class="table-responsive">
       <table  class="table row-border hover table-striped">
         <tr >
@@ -90,7 +90,7 @@
         <h5>No Cultured Bacteria Results For Current Area.</h5>
       </div>
       <div *ngIf="cfuMetadata.length > 0" style="height:500px;">
-        <div style="display: flex; flex-direction: row; justify-content: space-between; height: 32px"><h5>Cultured Bacteria Results {{cfuMetadata.length}}</h5><p>{{currentlySelected !== 0 ? 'Selected Samples: ' + currentlySelected : null}}</p></div>
+      <h5>Cultured Bacteria Results {{cfuMetadata.length}}</h5>
       <div style="overflow: auto; height:468px;" class="table-responsive">
       <table  class="table row-border hover table-striped">
         <tr >
@@ -127,7 +127,7 @@
         <h5>No qPCR Bacteria Results For Current Area.</h5>
       </div>
       <div *ngIf="qpcrMetadata.length > 0" style="height:500px;">
-      <div style="display: flex; flex-direction: row; justify-content: space-between; height: 32px"><h5>qPCR Bacteria Results {{qpcrMetadata.length}}</h5><p>{{currentlySelected !== 0 ? 'Selected Samples: ' + currentlySelected : null}}</p></div>
+      <h5>qPCR Bacteria Results {{qpcrMetadata.length}}</h5>
       <div style="overflow: auto; height:468px;" class="table-responsive">
       <table  class="table row-border hover table-striped">
         <tr >
