@@ -13,7 +13,7 @@ import { AppConfig } from './config.service';
 export class RequestService {
 
   constructor(private http: HttpClient)  {
-    console.log('does this get built?')
+
   }
 
 
@@ -24,9 +24,7 @@ export class RequestService {
     //  result: any
     // }
 
-    //console.log(AppConfig.settings.aad.tenant);
-
-    let url = AppConfig.settings.aad.tenant + "/meta/v2/data/";
+    let url = AppConfig.settings.aad.microDbApi;
 
     //console.log(url);
     let head = new HttpHeaders()
@@ -69,20 +67,19 @@ export class RequestService {
     //   })
     // );
 
-    // console.log(body, 'wat?')
+    console.log(body, 'body here?')
     // body = JSON.stringify(body);
-    // console.log(body, 'wat?')
 
     let response = this.http.post<any>(url, body, options)
      .pipe(
       retry(0),
       map((data: any) => {
-        console.log(data, ' do i get any data back?')
+        alert(data.body.message)
         // return data.body.result;
         return data;
       }),
       catchError((e: HttpErrorResponse) => {
-        console.log(e, ' what is my error?')
+        alert('Oops, an error occurred.')
         let err: {
           message: string,
           status: number

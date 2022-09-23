@@ -69,8 +69,21 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      // this.animal = result;
+      if (!result || !result.isValidRequest || !result.selectedData.length) {
+        return console.log('invalid request');
+      } 
+
+      // const data = {
+      //   "name": "TEST_Jul25",
+      //   "value": {
+      //       "samples": ["bar", "baz"],
+      //       "requestor_full_name": "SANITY",
+      //       "company_affiliation": "unknown",
+      //       "email": "blank@blank.com",
+      //       "reason": "none"
+      //   },
+      // }
+      this.tester.request(result);
     });
   }
   
@@ -487,21 +500,6 @@ export class MapComponent implements OnInit, AfterViewInit {
     this.dataGroups.cfu.clearLayers();
     this.dataGroups.qpcr.clearLayers();
   }
-
-  // testRoute() {
-  //   const data = {
-  //     "name": "TEST_Micro_Requests",
-  //     "value": {
-  //         "samples": ["bar", "baz"],
-  //         "requestor_full_name": "SANITY",
-  //         "company_affiliation": "unknown",
-  //         "email": "blank@blank.com",
-  //         "reason": "none"
-  //     },
-  //     "permissions": [ {"username": "seanbc", "permissions": "ALL"}, {"username": "ikewai-admin", "permissions": "ALL"}, {"username": "microdb-admin", "permissions": "ALL"}, {"username": "ckkondo", "permissions": "ALL"}]
-  //   }
-  //   this.tester.request(data);
-  // }
 
   toggleAhupuaa() {
     this.ahupuaaToggled = !this.ahupuaaToggled;
